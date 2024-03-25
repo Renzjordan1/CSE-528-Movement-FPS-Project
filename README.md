@@ -5,7 +5,7 @@ Spring 2024 project for CSE-528 Game Design
 
 
 # In Progress
-Test Stage
-Player prefab
+-Test Stage
+-Player prefab
 
 # Not Started
