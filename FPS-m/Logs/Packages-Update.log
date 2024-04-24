@@ -141,3 +141,11 @@ The following packages were updated:
   com.unity.ide.visualstudio from version 2.0.16 to 2.0.22
   com.unity.probuilder from version 5.0.6 to 5.2.2
   com.unity.timeline from version 1.7.2 to 1.7.6
+
+=== Tue Apr 23 20:22:33 2024
+
+Packages were changed.
+Update Mode: mergeDefaultDependencies
+
+The following packages were added:
+  com.unity.postprocessing@3.2.2
