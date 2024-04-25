@@ -59,9 +59,25 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
 
+    [Header("Enemy")]
+    public RaycastHit rayHit;
+    public LayerMask whatIsEnemy;
+    public GameObject explosion;
+    public float explosionDamage;
+    public float explosionRange;
+    public float explosionForce;
+
+    //Sounds
+    [Header("Audio")]
+    [SerializeField] public AudioClip poundSound;
+    private AudioSource audioSource;
+    public float audioVolume;
+
+
     [Header("Transforms")]
     public Transform orientation;
     public Transform playerObj;
+
 
     float horizontalInput;
     float verticalInput;
@@ -85,6 +101,8 @@ public class PlayerMovement : MonoBehaviour
     public bool sliding;
     bool longJump;
     public bool wallrunning;
+    bool hitEnemy;
+    bool exploded;
 
     public MovementState state;
 
@@ -97,6 +115,8 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         startYScale = playerObj.localScale.y;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -119,6 +139,13 @@ public class PlayerMovement : MonoBehaviour
         }else
         {
             rb.drag = 0;
+        }
+
+        //allow ground pound enemy
+        if(state != MovementState.pound)
+        {
+            hitEnemy = false;
+            exploded = false;
         }
 
         //Buffer a little before checking to reset longJump
@@ -168,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
 
     void StateHandler()
     {
+        Debug.Log("State: " + state);
         //Mode - Wallrunning
         if(wallrunning)
         {
@@ -308,9 +336,27 @@ public class PlayerMovement : MonoBehaviour
             //ground pounding
             if(state == MovementState.pound)
             {
+
+                //Hit Enemy once and explode
+                if(Physics.Raycast(transform.position, Vector3.down, out rayHit, playerHeight * 0.5f + 1f, whatIsEnemy) || Physics.Raycast(transform.position, Vector3.down, out rayHit, playerHeight * 0.5f + 1f, whatIsGround))
+                {
+                    // Debug.Log("pounded: " + rayHit.collider.name);
+                    if (rayHit.collider.CompareTag("enemy") && !hitEnemy)
+                    {
+                        rayHit.collider.GetComponent<ReactiveTarget3>().ReactToHit(100f);
+                        hitEnemy = true;
+                    }
+                    if(!exploded)
+                    {   
+                        Explode();
+                        exploded = true;
+                    }
+                }
+
                 rb.velocity = new Vector3(0, rb.velocity.y, 0);
                 rb.AddForce(Vector3.down * 120f, ForceMode.Force);
             }
+
 
             //long jumping
             else if(longJump)
@@ -438,8 +484,31 @@ public class PlayerMovement : MonoBehaviour
 
     void printSpeed()
     {
-        Debug.Log("speed: " + moveSpeed);
+        // Debug.Log("speed: " + moveSpeed);
         speed_txt.text = "speed: " + moveSpeed;
     }
+
+    
+    void Explode()
+    {
+        AudioSource.PlayClipAtPoint(poundSound, transform.position, audioVolume);
+
+        Debug.Log("Explode impact: " + rb.velocity.magnitude);
+        explosionRange = rb.velocity.magnitude/3;
+        explosionDamage = rb.velocity.magnitude * 2;
+
+
+        //Instantiate explosion
+        if(explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
+
+        //Check for enemies
+        Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemy);
+        for(int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<ReactiveTarget3>().ReactToHit(explosionDamage);
+        }
+
+    }
+
 
 }

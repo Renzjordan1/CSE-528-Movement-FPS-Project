@@ -85,12 +85,14 @@
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\RayShooter.cs" />
     <Compile Include="Assets\Scripts\Sliding.cs" />
+    <Compile Include="Assets\Scripts\CustomBullet.cs" />
     <Compile Include="Assets\Scripts\PlayerCharacter.cs" />
     <Compile Include="Assets\Scripts\New_Scripts\BallShooting.cs" />
     <Compile Include="Assets\Scripts\ReactiveTarget3.cs" />
     <Compile Include="Assets\Scripts\Fireball.cs" />
     <Compile Include="Assets\Scripts\WanderingAI.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\WeaponSwitching.cs" />
     <Compile Include="Assets\Scripts\New_Scripts\BallScript.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +117,7 @@
     <None Include="Assets\UnityTechnologies\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\MaGuns\FlameThrowerInstructions.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>

@@ -37,6 +37,7 @@ public class HitscanGun : MonoBehaviour
     [Header("References")]
     public Camera fpsCam;
     public Transform attackPoint;
+    public Transform attackPoint2;
     public RaycastHit rayHit;
     public LayerMask whatIsEnemy;
 
@@ -44,9 +45,18 @@ public class HitscanGun : MonoBehaviour
     [Header("Graphics")]
     public GameObject muzzleFlash;
     public GameObject bulletHole;
+    public GameObject enemyHole;
     public TextMeshProUGUI ammunitionDisplay;
     public TrailRenderer bulletTrail;
     // Animator animator;
+
+    //Sounds
+    [Header("Sounds")]
+    [SerializeField] public AudioClip gunShot;
+    [SerializeField] public AudioClip reloadSound;
+    private AudioSource audioSource;
+    public float audioVolumeGun;
+    public float audioVolumeReload;
 
     //bug fixing
     public bool allowInvoke = true;
@@ -61,7 +71,7 @@ public class HitscanGun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -149,23 +159,43 @@ public class HitscanGun : MonoBehaviour
         {
             Debug.Log(rayHit.collider.name);
 
-            TrailRenderer trail = Instantiate(bulletTrail, attackPoint.position, Quaternion.identity);
-            StartCoroutine(SpawnTrail(trail, rayHit));
+            //bullet trails
+            if(bulletTrail != null)
+            {
+                TrailRenderer trail = Instantiate(bulletTrail, attackPoint.position, Quaternion.identity);
+                StartCoroutine(SpawnTrail(trail, rayHit));
+            }
+            
+            TrailRenderer trail2;
+
+            if(attackPoint2 != null)
+            {
+                trail2 = Instantiate(bulletTrail, attackPoint2.position, Quaternion.identity);
+                StartCoroutine(SpawnTrail(trail2, rayHit));
+            }
 
             //hit enemy
-            if(rayHit.collider.CompareTag("Enemy"))
+            if (rayHit.collider.CompareTag("enemy"))
             {
-                // rayHit.collider.GetComponent<ShootingAI>().TakeDamage(damage);
+                rayHit.collider.GetComponent<ReactiveTarget3>().ReactToHit(damage);
+                //enemy impact 
+                if(enemyHole != null) Instantiate(enemyHole, rayHit.point, Quaternion.Euler(0, 180, 0));
+            }
+            else
+            {
+                //bullet impact
+                if(bulletHole != null) Instantiate(bulletHole, rayHit.point, Quaternion.Euler(0, 180, 0));
             }
         }
 
-
-        //Instantiate graphics
         //muzzle flash
-        if(muzzleFlash != null) Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-        //bullet impact 
-        if(bulletHole != null) Instantiate(bulletHole, rayHit.point, Quaternion.Euler(0, 180, 0));
+        if(muzzleFlash != null) 
+            Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+            if(attackPoint2 != null)
+                Instantiate(muzzleFlash, attackPoint2.position, Quaternion.identity);
 
+
+        //count shots
         bulletsLeft--;
         bulletsShot++;
 
@@ -174,6 +204,9 @@ public class HitscanGun : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
+            
+            //gunshot sound
+            PlayHitSound();
         }
 
         //many bulletsPerTap
@@ -196,6 +229,8 @@ public class HitscanGun : MonoBehaviour
 
     void Reload()
     {
+        //reload sound
+        PlayReloadSound();
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
     }
@@ -224,5 +259,19 @@ public class HitscanGun : MonoBehaviour
         trail.transform.position = hit.point;
         
         Destroy(trail.gameObject, trail.time);
+    }
+
+    private void PlayHitSound()
+    {
+        audioSource.clip = gunShot;
+        audioSource.volume = audioVolumeGun;
+        audioSource.Play();
+    }
+
+    private void PlayReloadSound()
+    {
+        audioSource.clip = reloadSound;
+        audioSource.volume = audioVolumeReload;
+        audioSource.Play();
     }
 }

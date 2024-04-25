@@ -25,6 +25,11 @@ public class ProjectileGun : MonoBehaviour
     int bulletsLeft;
     int bulletsShot;
 
+    //Recoil
+    [Header("Recoil")]
+    public Rigidbody playerRb;
+    public float recoilForce;
+
     //bools
     bool shooting;
     bool readyToShoot;
@@ -40,6 +45,14 @@ public class ProjectileGun : MonoBehaviour
     public GameObject muzzleFlash;
     public TextMeshProUGUI ammunitionDisplay;
 
+    //Sounds
+    [Header("Sounds")]
+    [SerializeField] public AudioClip gunShot;
+    [SerializeField] public AudioClip reloadSound;
+    private AudioSource audioSource;
+    public float audioVolumeGun;
+    public float audioVolumeReload;
+
     //bug fixing
     public bool allowInvoke = true;
 
@@ -53,7 +66,7 @@ public class ProjectileGun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -141,6 +154,11 @@ public class ProjectileGun : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
+
+            //Add recoil to player
+            playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
+
+            PlayHitSound();
         }
 
         //many bulletsPerTap
@@ -160,6 +178,7 @@ public class ProjectileGun : MonoBehaviour
 
     void Reload()
     {
+        PlayReloadSound();
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
     }
@@ -168,5 +187,19 @@ public class ProjectileGun : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+
+    private void PlayHitSound()
+    {
+        audioSource.clip = gunShot;
+        audioSource.volume = audioVolumeGun;
+        audioSource.Play();
+    }
+
+    private void PlayReloadSound()
+    {
+        audioSource.clip = reloadSound;
+        audioSource.volume = audioVolumeReload;
+        audioSource.Play();
     }
 }

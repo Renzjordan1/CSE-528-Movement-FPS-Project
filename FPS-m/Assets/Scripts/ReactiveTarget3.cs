@@ -4,47 +4,63 @@ using System.Collections;
 public class ReactiveTarget3 : MonoBehaviour 
 {
     //private ParticleSystem blood;
-    private MeshRenderer flick;
+    // private MeshRenderer flick;
     private bool dead = false;
     [SerializeField] private AudioClip enemyHit;
     [SerializeField] private AudioClip shrinking;
     private AudioSource audioSource;
+    public float health = 100;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void ReactToHit() 
+    public void ReactToHit(float damage) 
     {
 		WanderingAI behavior = GetComponent<WanderingAI>();
-		if (behavior != null) 
-        {
-			behavior.SetAlive(false);
-		}
+
+        //take damage
+        health -= damage;
+        Debug.Log("Pounded by: " + damage);
+
         if (!dead)
         {
+            //hurt sound
             if (audioSource != null) PlayHitSound();
-            StartCoroutine(Die()); // dying animation
-            
-            GameObject em = GameObject.Find("EnemyManager");
-            EnemyManager2 emScript = em.GetComponent<EnemyManager2>();
-            emScript.numEnemies -= 1;
 
-            GameObject ply = GameObject.Find("Player");
-            PlayerCharacter pcScript = ply.GetComponent<PlayerCharacter>();
-            pcScript.updateKills();
+            //died
+            if(health <= 0)
+
+            {
+                if (behavior != null) 
+                    behavior.SetAlive(false);
+
+                StartCoroutine(Die()); // dying animation
+                
+                //track enemy count
+                GameObject em = GameObject.Find("EnemyManager");
+                EnemyManager2 emScript = em.GetComponent<EnemyManager2>();
+                emScript.numEnemies -= 1;
+
+                // GameObject ply = GameObject.Find("Player");
+                // PlayerCharacter pcScript = ply.GetComponent<PlayerCharacter>();
+                // pcScript.updateKills();
+            }
         }
 	}
 
     private void PlayHitSound()
     {
         audioSource.clip = enemyHit;
+        audioSource.volume = 0.03f;
         audioSource.Play();
     }
 
     private void PlayShrinkSound()
     {
         audioSource.clip = shrinking;
+        audioSource.volume = 0.015f;
         audioSource.Play();
     }
 
@@ -73,4 +89,6 @@ public class ReactiveTarget3 : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         Destroy(this.gameObject);
     }
+
+
 }
