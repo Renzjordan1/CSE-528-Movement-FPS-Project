@@ -59,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
 
-<<<<<<< HEAD
     [Header("Enemy")]
     public RaycastHit rayHit;
     public LayerMask whatIsEnemy;
@@ -75,16 +74,11 @@ public class PlayerMovement : MonoBehaviour
     public float audioVolume;
 
 
-=======
->>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     [Header("Transforms")]
     public Transform orientation;
     public Transform playerObj;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     float horizontalInput;
     float verticalInput;
 
@@ -107,11 +101,8 @@ public class PlayerMovement : MonoBehaviour
     public bool sliding;
     bool longJump;
     public bool wallrunning;
-<<<<<<< HEAD
     bool hitEnemy;
     bool exploded;
-=======
->>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
 
     public MovementState state;
 
@@ -124,11 +115,8 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         startYScale = playerObj.localScale.y;
-<<<<<<< HEAD
 
         audioSource = GetComponent<AudioSource>();
-=======
->>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     }
 
     // Update is called once per frame
@@ -153,7 +141,6 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = 0;
         }
 
-<<<<<<< HEAD
         //allow ground pound enemy
         if(state != MovementState.pound)
         {
@@ -161,8 +148,6 @@ public class PlayerMovement : MonoBehaviour
             exploded = false;
         }
 
-=======
->>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
         //Buffer a little before checking to reset longJump
         Invoke(nameof(ResetLongJump), jumpCooldown*2);
 
@@ -210,10 +195,7 @@ public class PlayerMovement : MonoBehaviour
 
     void StateHandler()
     {
-<<<<<<< HEAD
         Debug.Log("State: " + state);
-=======
->>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
         //Mode - Wallrunning
         if(wallrunning)
         {
@@ -354,7 +336,6 @@ public class PlayerMovement : MonoBehaviour
             //ground pounding
             if(state == MovementState.pound)
             {
-<<<<<<< HEAD
 
                 //Hit Enemy once and explode
                 if(Physics.Raycast(transform.position, Vector3.down, out rayHit, playerHeight * 0.5f + 1f, whatIsEnemy) || Physics.Raycast(transform.position, Vector3.down, out rayHit, playerHeight * 0.5f + 1f, whatIsGround))
@@ -372,16 +353,11 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
 
-=======
->>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
                 rb.velocity = new Vector3(0, rb.velocity.y, 0);
                 rb.AddForce(Vector3.down * 120f, ForceMode.Force);
             }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
             //long jumping
             else if(longJump)
             {
@@ -508,7 +484,6 @@ public class PlayerMovement : MonoBehaviour
 
     void printSpeed()
     {
-<<<<<<< HEAD
         // Debug.Log("speed: " + moveSpeed);
         speed_txt.text = "speed: " + moveSpeed;
     }
@@ -536,10 +511,4 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-=======
-        Debug.Log("speed: " + moveSpeed);
-        speed_txt.text = "speed: " + moveSpeed;
-    }
-
->>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
 }
