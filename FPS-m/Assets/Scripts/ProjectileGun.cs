@@ -25,11 +25,14 @@ public class ProjectileGun : MonoBehaviour
     int bulletsLeft;
     int bulletsShot;
 
+<<<<<<< HEAD
     //Recoil
     [Header("Recoil")]
     public Rigidbody playerRb;
     public float recoilForce;
 
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     //bools
     bool shooting;
     bool readyToShoot;
@@ -45,6 +48,7 @@ public class ProjectileGun : MonoBehaviour
     public GameObject muzzleFlash;
     public TextMeshProUGUI ammunitionDisplay;
 
+<<<<<<< HEAD
     //Sounds
     [Header("Sounds")]
     [SerializeField] public AudioClip gunShot;
@@ -53,6 +57,8 @@ public class ProjectileGun : MonoBehaviour
     public float audioVolumeGun;
     public float audioVolumeReload;
 
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     //bug fixing
     public bool allowInvoke = true;
 
@@ -66,7 +72,11 @@ public class ProjectileGun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< HEAD
         audioSource = GetComponent<AudioSource>();
+=======
+        
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     }
 
     // Update is called once per frame
@@ -154,11 +164,14 @@ public class ProjectileGun : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
+<<<<<<< HEAD
 
             //Add recoil to player
             playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
 
             PlayHitSound();
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
         }
 
         //many bulletsPerTap
@@ -178,7 +191,10 @@ public class ProjectileGun : MonoBehaviour
 
     void Reload()
     {
+<<<<<<< HEAD
         PlayReloadSound();
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
     }
@@ -188,6 +204,7 @@ public class ProjectileGun : MonoBehaviour
         bulletsLeft = magazineSize;
         reloading = false;
     }
+<<<<<<< HEAD
 
     private void PlayHitSound()
     {
@@ -202,4 +219,6 @@ public class ProjectileGun : MonoBehaviour
         audioSource.volume = audioVolumeReload;
         audioSource.Play();
     }
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
 }

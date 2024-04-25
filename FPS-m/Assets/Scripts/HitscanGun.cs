@@ -37,7 +37,10 @@ public class HitscanGun : MonoBehaviour
     [Header("References")]
     public Camera fpsCam;
     public Transform attackPoint;
+<<<<<<< HEAD
     public Transform attackPoint2;
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     public RaycastHit rayHit;
     public LayerMask whatIsEnemy;
 
@@ -45,11 +48,15 @@ public class HitscanGun : MonoBehaviour
     [Header("Graphics")]
     public GameObject muzzleFlash;
     public GameObject bulletHole;
+<<<<<<< HEAD
     public GameObject enemyHole;
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     public TextMeshProUGUI ammunitionDisplay;
     public TrailRenderer bulletTrail;
     // Animator animator;
 
+<<<<<<< HEAD
     //Sounds
     [Header("Sounds")]
     [SerializeField] public AudioClip gunShot;
@@ -58,6 +65,8 @@ public class HitscanGun : MonoBehaviour
     public float audioVolumeGun;
     public float audioVolumeReload;
 
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     //bug fixing
     public bool allowInvoke = true;
 
@@ -71,7 +80,11 @@ public class HitscanGun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< HEAD
         audioSource = GetComponent<AudioSource>();
+=======
+        
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     }
 
     // Update is called once per frame
@@ -159,6 +172,7 @@ public class HitscanGun : MonoBehaviour
         {
             Debug.Log(rayHit.collider.name);
 
+<<<<<<< HEAD
             //bullet trails
             if(bulletTrail != null)
             {
@@ -196,6 +210,25 @@ public class HitscanGun : MonoBehaviour
 
 
         //count shots
+=======
+            TrailRenderer trail = Instantiate(bulletTrail, attackPoint.position, Quaternion.identity);
+            StartCoroutine(SpawnTrail(trail, rayHit));
+
+            //hit enemy
+            if(rayHit.collider.CompareTag("Enemy"))
+            {
+                // rayHit.collider.GetComponent<ShootingAI>().TakeDamage(damage);
+            }
+        }
+
+
+        //Instantiate graphics
+        //muzzle flash
+        if(muzzleFlash != null) Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        //bullet impact 
+        if(bulletHole != null) Instantiate(bulletHole, rayHit.point, Quaternion.Euler(0, 180, 0));
+
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
         bulletsLeft--;
         bulletsShot++;
 
@@ -204,9 +237,12 @@ public class HitscanGun : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
+<<<<<<< HEAD
             
             //gunshot sound
             PlayHitSound();
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
         }
 
         //many bulletsPerTap
@@ -229,8 +265,11 @@ public class HitscanGun : MonoBehaviour
 
     void Reload()
     {
+<<<<<<< HEAD
         //reload sound
         PlayReloadSound();
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
     }
@@ -260,6 +299,7 @@ public class HitscanGun : MonoBehaviour
         
         Destroy(trail.gameObject, trail.time);
     }
+<<<<<<< HEAD
 
     private void PlayHitSound()
     {
@@ -274,4 +314,6 @@ public class HitscanGun : MonoBehaviour
         audioSource.volume = audioVolumeReload;
         audioSource.Play();
     }
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
 }

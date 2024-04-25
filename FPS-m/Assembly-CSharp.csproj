@@ -85,14 +85,20 @@
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\RayShooter.cs" />
     <Compile Include="Assets\Scripts\Sliding.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\CustomBullet.cs" />
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     <Compile Include="Assets\Scripts\PlayerCharacter.cs" />
     <Compile Include="Assets\Scripts\New_Scripts\BallShooting.cs" />
     <Compile Include="Assets\Scripts\ReactiveTarget3.cs" />
     <Compile Include="Assets\Scripts\Fireball.cs" />
     <Compile Include="Assets\Scripts\WanderingAI.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\WeaponSwitching.cs" />
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     <Compile Include="Assets\Scripts\New_Scripts\BallScript.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -117,7 +123,10 @@
     <None Include="Assets\UnityTechnologies\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+<<<<<<< HEAD
     <None Include="Assets\MaGuns\FlameThrowerInstructions.txt" />
+=======
+>>>>>>> d1b153c3b18e8e2940077858b14cdacb8a610b46
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
