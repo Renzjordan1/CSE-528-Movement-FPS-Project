@@ -29,7 +29,7 @@ public class WanderingAI : MonoBehaviour
 
         Ray ray = new Ray(transform.position, transform.forward);
 		RaycastHit hit;
-        if (Physics.SphereCast(ray, 0.75f, out hit))
+        if (Physics.SphereCast(ray, 0.33f, out hit))
         {
             GameObject hitObject = hit.transform.gameObject;
 

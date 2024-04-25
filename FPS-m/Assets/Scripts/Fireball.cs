@@ -13,12 +13,15 @@ public class Fireball : MonoBehaviour
 
 	void OnTriggerEnter(Collider other) 
     {
-		PlayerCharacter player = other.GetComponent<PlayerCharacter>();
-		if (player != null) 
+        if(other.CompareTag("Player"))
         {
-			player.Hurt(damage);
-		}
-		Destroy(this.gameObject);
+            Health player = other.transform.parent.gameObject.GetComponent<Health>();
+            if (player != null) 
+            {
+                player.DamagePlayer(damage);
+            }
+            Destroy(this.gameObject);
+        }
 	}
     private IEnumerator SelfDestruct()
     {
