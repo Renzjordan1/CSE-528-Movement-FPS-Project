@@ -6,14 +6,17 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    private int curHealth = 0;
+    public int curHealth = 0;
     public int maxHealth = 150;
     public HealthBar healthBar;
     [SerializeField] private TMP_Text hp_txt;
     public GameObject image;
 
+    [SerializeField] private GameObject gameOverMenu = null;
+
     void Start()
     {
+        gameOverMenu.SetActive(false);
         curHealth = maxHealth;
 
     }
@@ -34,9 +37,20 @@ public class Health : MonoBehaviour
     public void DamagePlayer( int damage )
     {
         curHealth -= damage;
+
         if(curHealth <= 0)
-            curHealth = 0; 
-        healthBar.SetHealth( curHealth );
+        {
+            curHealth = 0;
+
+            Time.timeScale = 0;
+
+            gameOverMenu.SetActive(true);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } 
+
+        healthBar.SetHealth( (float)curHealth );
         Debug.Log("HealthBar Value: " + curHealth);
     }
 }

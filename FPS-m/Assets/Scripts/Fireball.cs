@@ -25,7 +25,7 @@ public class Fireball : MonoBehaviour
 	}
     private IEnumerator SelfDestruct()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
 }

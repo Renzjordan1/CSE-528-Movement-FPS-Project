@@ -433,7 +433,7 @@ public class PlayerMovement : MonoBehaviour
                 crouchTime = 1;
             }
             // Debug.Log("crouch time: " + crouchTime);
-            rb.AddForce(transform.up * jumpForce * (1 + crouchTime * 0.6f), ForceMode.Impulse);
+            rb.AddForce(transform.up * jumpForce * (1 + crouchTime * 0.75f), ForceMode.Impulse);
             crouchTime = 0;
         }
 
@@ -456,7 +456,7 @@ public class PlayerMovement : MonoBehaviour
         //ground check
         bool grounded2 = Physics.Raycast(transform.position, Vector3.down, playerObj.localScale.y + 0.3f, whatIsGround);
 
-        if(grounded2)
+        if(grounded2 || state == MovementState.wallrunning)
         {
             Debug.Log("GROUND HI");
             longJump = false;
