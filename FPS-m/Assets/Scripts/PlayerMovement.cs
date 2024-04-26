@@ -420,6 +420,8 @@ public class PlayerMovement : MonoBehaviour
 
         //long jump
         if(Input.GetKey(crouchKey) && moveSpeed > 5 && state != MovementState.sliding){
+            
+
             transform.position = transform.position + new Vector3(0, 1f, 0);
             rb.AddForce(transform.up * jumpForce*0.7f, ForceMode.Impulse);
 
@@ -427,13 +429,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //backflip (high) jump
-        else if(Input.GetKey(crouchKey) && moveSpeed < 5 && state != MovementState.sliding)
+        else if(Input.GetKey(crouchKey) && moveSpeed <= 5 && state != MovementState.sliding)
         {
             if(crouchTime > 1){
                 crouchTime = 1;
             }
             // Debug.Log("crouch time: " + crouchTime);
-            rb.AddForce(transform.up * jumpForce * (1 + crouchTime * 0.6f), ForceMode.Impulse);
+            rb.AddForce(transform.up * jumpForce * (1 + crouchTime * 0.75f), ForceMode.Impulse);
             crouchTime = 0;
         }
 
@@ -456,9 +458,8 @@ public class PlayerMovement : MonoBehaviour
         //ground check
         bool grounded2 = Physics.Raycast(transform.position, Vector3.down, playerObj.localScale.y + 0.3f, whatIsGround);
 
-        if(grounded2)
+        if(grounded2 || state == MovementState.wallrunning)
         {
-            Debug.Log("GROUND HI");
             longJump = false;
         }
     }

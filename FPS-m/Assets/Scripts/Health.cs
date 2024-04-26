@@ -11,14 +11,17 @@ public class Health : MonoBehaviour
     public HealthBar healthBar;
     [SerializeField] private TMP_Text hp_txt;
     public GameObject image;
+    [SerializeField] GameObject gameOverMenu = null;
 
     void Start()
     {
+        //Start at full hp
+        gameOverMenu.SetActive(false);
         curHealth = maxHealth;
-
     }
     void Update()
     {
+        //update HP HUD
         hp_txt.text = "HP: " + curHealth;
         if(curHealth >= 100){
             image.GetComponent<Image>().color = Color.green;
@@ -33,10 +36,25 @@ public class Health : MonoBehaviour
     }
     public void DamagePlayer( int damage )
     {
+        //take damage
         curHealth -= damage;
+
+        //died
         if(curHealth <= 0)
+        {
             curHealth = 0; 
-        healthBar.SetHealth( (float)curHealth/150 );
+
+            Time.timeScale = 0;
+		    gameOverMenu.SetActive(true);
+
+            Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+        }
+        // else{
+        //     gameOverMenu.SetActive(false);
+        // }
+
+        healthBar.SetHealth( (float)curHealth);
         Debug.Log("HealthBar Value: " + curHealth);
     }
 }

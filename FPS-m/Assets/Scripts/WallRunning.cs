@@ -105,16 +105,16 @@ public class WallRunning : MonoBehaviour
             }
 
             //wallrun timer
-            if(wallRunTimer > 0)
-            {
-                wallRunTimer -= Time.deltaTime;
-            }
+            // if(wallRunTimer > 0)
+            // {
+            //     wallRunTimer -= Time.deltaTime;
+            // }
 
-            if(wallRunTimer <= 0 && pm.wallrunning)
-            {
-                exitingWall = true;
-                exitWallTimer = exitWallTime;
-            }
+            // if(wallRunTimer <= 0 && pm.wallrunning)
+            // {
+            //     exitingWall = true;
+            //     exitWallTimer = exitWallTime;
+            // }
 
             //wall jump
             if(Input.GetKeyDown(jumpKey))

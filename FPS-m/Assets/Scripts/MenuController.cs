@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
 	public void LoadGame()
 	{
 		Time.timeScale = 1.0f;
-		SceneManager.LoadScene("FPS_Renz");
+		SceneManager.LoadScene("FPS_Renz 1");
 	}
 
 	// Load the main menu
