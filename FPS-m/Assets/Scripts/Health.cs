@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    private int curHealth = 0;
+    public int curHealth = 0;
     public int maxHealth = 150;
     public HealthBar healthBar;
     [SerializeField] private TMP_Text hp_txt;
@@ -36,7 +36,7 @@ public class Health : MonoBehaviour
         curHealth -= damage;
         if(curHealth <= 0)
             curHealth = 0; 
-        healthBar.SetHealth( curHealth );
+        healthBar.SetHealth( (float)curHealth/150 );
         Debug.Log("HealthBar Value: " + curHealth);
     }
 }
