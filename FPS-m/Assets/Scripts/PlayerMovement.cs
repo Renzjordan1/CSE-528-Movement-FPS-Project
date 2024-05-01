@@ -420,6 +420,8 @@ public class PlayerMovement : MonoBehaviour
 
         //long jump
         if(Input.GetKey(crouchKey) && moveSpeed > 5 && state != MovementState.sliding){
+            
+
             transform.position = transform.position + new Vector3(0, 1f, 0);
             rb.AddForce(transform.up * jumpForce*0.7f, ForceMode.Impulse);
 
@@ -427,7 +429,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //backflip (high) jump
-        else if(Input.GetKey(crouchKey) && moveSpeed < 5 && state != MovementState.sliding)
+        else if(Input.GetKey(crouchKey) && moveSpeed <= 5 && state != MovementState.sliding)
         {
             if(crouchTime > 1){
                 crouchTime = 1;
@@ -458,7 +460,6 @@ public class PlayerMovement : MonoBehaviour
 
         if(grounded2 || state == MovementState.wallrunning)
         {
-            Debug.Log("GROUND HI");
             longJump = false;
         }
     }
