@@ -39,22 +39,19 @@ public class Health : MonoBehaviour
         //take damage
         curHealth -= damage;
 
-        //died
         if(curHealth <= 0)
         {
-            curHealth = 0; 
+            curHealth = 0;
 
             Time.timeScale = 0;
-		    gameOverMenu.SetActive(true);
+
+            gameOverMenu.SetActive(true);
 
             Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-        }
-        // else{
-        //     gameOverMenu.SetActive(false);
-        // }
+            Cursor.visible = true;
+        } 
 
-        healthBar.SetHealth( (float)curHealth);
+        healthBar.SetHealth( (float)curHealth );
         Debug.Log("HealthBar Value: " + curHealth);
     }
 }
