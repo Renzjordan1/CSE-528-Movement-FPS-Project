@@ -13,8 +13,6 @@ public class Health : MonoBehaviour
     public GameObject image;
     [SerializeField] GameObject gameOverMenu = null;
 
-    [SerializeField] private GameObject gameOverMenu = null;
-
     void Start()
     {
         //Start at full hp
