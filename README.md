@@ -1,7 +1,7 @@
 # CSE-528-Movement-FPS-Project
 Movement Shooter Project for CSE-528 Game Design
 
-### Play at: https://rstole01.itch.io/spring-2024-fps
+### Play at: https://rstole01.itch.io/boom
 <br />
 
 # Features
